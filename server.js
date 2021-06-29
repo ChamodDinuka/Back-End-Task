@@ -2,7 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const schedule = require('node-schedule');
 const currency = require('./routes/currency_routes');
-const controllers = require('./controllers/currency_controller')
+const controllers = require('./controllers/currency_controller');
+const { response } = require('express');
 
 // Load env variables
 dotenv.config({path:'./back_end_config.env'});
@@ -15,7 +16,6 @@ const breeds = controllers.getBreeds()
     .then(response => {
       if (response) {
         schedule.scheduleJob('*/23 * * *', function(){
-            console.log('The answer to life, the universe, and everything!');
             const breeds = controllers.getBreeds()
               .then(response => {
                 if (response) {
@@ -30,7 +30,7 @@ const breeds = controllers.getBreeds()
       }
     })
     .catch(error => {
-      console.log(error)
+      console.log(error.Error)
     })
 
 // Mount routes
