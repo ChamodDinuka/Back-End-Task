@@ -20,7 +20,7 @@ exports.currencyValue =async (req,res,next)=>{
     if ( value == undefined ){
     // handle miss!
     
-    res.send({name : 'kalpa'});
+    res.status(400).send("cash empty");
     }else{
         try {
             const valid = await schema.validateAsync(req.body);
