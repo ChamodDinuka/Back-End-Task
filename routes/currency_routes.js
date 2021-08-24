@@ -33,5 +33,29 @@ router.put('/test',async(req,res)=>{
         res.send(err);
     }
 })
+//filtering end point
+router.get('/getFilter',async(req,res)=>{
+    let queryString = JSON.stringify(req.query);
+    let queryStr = queryString.replace(/\b(gt|lt|gte|lte)\b/g, match => `$${match}`)
+    console.log(queryStr);
+    try{
+        const test = await testModel.find(JSON.parse(queryStr));
+        if(!test){
+            return res.send("No records founds");
+        }
+        res.send(test);
+    }catch(err){
+        res.status(400).send("Bad Request");
+    }
+})
+//take field and sort
+router.get('/column',async(req,res)=>{
+    try{
+        const test = await testModel.find().select('age').sort('age');
+        res.send(test)
+    }catch{
+        res.status(400).send("Bad Request");
+    }
+})
 
 module.exports = router;
