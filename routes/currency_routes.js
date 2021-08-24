@@ -51,7 +51,7 @@ router.get('/getFilter',async(req,res)=>{
 //take field and sort
 router.get('/column',async(req,res)=>{
     try{
-        const test = await testModel.find().select('age').sort('age');
+        const test = await testModel.find().select('age').sort('age').limit(2);
         res.send(test)
     }catch{
         res.status(400).send("Bad Request");
